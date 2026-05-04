@@ -17,7 +17,7 @@ readonly class MediaReferenceCollection
         foreach($this->references as $reference) {
             yield new MediaReference(
                 $reference['referenceTitle'],
-                $this->urlRepository->find($reference['referenceId'], $reference['referenceLocale'] ?? 'de')
+                $this->urlRepository->find($reference['referenceResourceId'], $reference['referenceLocale'] ?? 'de')
             );
         }
 

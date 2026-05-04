@@ -40,10 +40,4 @@ final class MediaManagerTest extends TestCase
         self::assertSame('de', $this->suluMediaManager->requestedLocale);
     }
 
-    public function testGetAllMediaReturnsEmptyArrayWhenSuluManagerIsNull(): void
-    {
-        $mediaManager = new MediaManager(null);
-        $result = $mediaManager->getAllMedia('de');
-        self::assertSame([], $result);
-    }
 }

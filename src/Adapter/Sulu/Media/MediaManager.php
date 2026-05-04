@@ -15,9 +15,6 @@ final readonly class MediaManager implements MediaRepositoryInterface
 
     public function getAllMedia(string $locale = 'de'): array
     {
-        if($this->mediaManager instanceof MediaManagerInterface === false) {
-            return [];
-        }
         $result = $this->mediaManager->get($locale); //TODO
         $medias = [];
         foreach($result as $item) {

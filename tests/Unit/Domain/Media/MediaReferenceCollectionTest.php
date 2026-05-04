@@ -19,8 +19,8 @@ final class MediaReferenceCollectionTest extends TestCase
     {
         $this->urlRepository = new MockUrlRepository();
         $this->references = [
-            ['referenceTitle' => 'Ref 1', 'referenceId' => '1', 'referenceLocale' => 'de'],
-            ['referenceTitle' => 'Ref 2', 'referenceId' => '2']
+            ['referenceTitle' => 'Ref 1', 'referenceResourceId' => '1', 'referenceLocale' => 'de'],
+            ['referenceTitle' => 'Ref 2', 'referenceResourceId' => '2']
         ];
         $this->collection = new MediaReferenceCollection($this->references, $this->urlRepository);
     }
