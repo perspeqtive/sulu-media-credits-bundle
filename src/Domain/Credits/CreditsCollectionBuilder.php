@@ -7,13 +7,13 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Domain\Credits;
 final readonly class CreditsCollectionBuilder implements CreditsCollectionBuilderInterface
 {
     public function __construct(
-        private MediaRepositoryInterface                 $mediaRepository,
+        private MediaRepositoryInterface $mediaRepository,
         private MediaReferenceCollectionBuilderInterface $referenceCollectionBuilder,
-    )
-    {
+    ) {
     }
 
-    public function build(string $locale = 'de'): CreditsCollection {
+    public function build(string $locale = 'de'): CreditsCollection
+    {
         $credits = new CreditsCollection();
         $medias = $this->mediaRepository->getAllMedia($locale);
         foreach ($medias as $media) {
@@ -26,11 +26,10 @@ final readonly class CreditsCollectionBuilder implements CreditsCollectionBuilde
                 $media->title,
                 $media->copyright,
                 $media->credit,
-                $this->referenceCollectionBuilder->build($media)
+                $this->referenceCollectionBuilder->build($media),
             ));
         }
+
         return $credits;
     }
-
-
 }

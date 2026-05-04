@@ -15,15 +15,15 @@ services:
       $referenceRepository: '@sulu_reference.reference_repository'
       $urlRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository'
 
-  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaManager:
-    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaManager
+  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository:
+    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository
     arguments:
-      $mediaManager: '@sulu_media.media_manager'
+      $entityManager: '@doctrine.orm.entity_manager'
 
   PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder:
     class: PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder
     arguments:
-      $mediaRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaManager'
+      $mediaRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository'
       $referenceCollectionBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder'
 
   PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension:
