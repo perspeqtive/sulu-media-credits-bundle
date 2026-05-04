@@ -2,7 +2,7 @@
 
 [![Packagist Version](https://img.shields.io/packagist/v/perspeqtive/sulu-media-credits-bundle)](https://packagist.org/packages/perspeqtive/sulu-media-credits-bundle)
 
-The Sulu Media Credits Bundle enables the automatic listing of media credits for media used on the current page. It scans the content of the current page for linked media and provides them collectively for display.
+The Sulu Media Credits Bundle enables the automatic listing of media credits for media used on the current website. It scans the content via the reference bundle of the current website for linked media and provides them collectively for display.
 
 ## 🚀 Features
 
@@ -32,7 +32,7 @@ return [
 
 ## 🛠️ Usage
 
-The bundle provides a Twig function that returns a collection of all media references on the current page.
+The bundle provides a Twig function that returns a collection of all media references on the current website.
 
 ### Twig Function
 
