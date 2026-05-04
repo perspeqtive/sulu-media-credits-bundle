@@ -20,12 +20,12 @@ final class CreditsCollectionTest extends TestCase
     public function testAddAddsCreditsToCollection(): void
     {
         $credits = new Credits(1, 'Media 1', 'Copyright 1', 'Credit 1', null);
-        
+
         $this->collection->add($credits);
-        
+
         self::assertCount(1, $this->collection);
         self::assertTrue($this->collection->hasCredits());
-        
+
         foreach ($this->collection as $item) {
             self::assertSame($credits, $item);
         }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Twig;
 
 use PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension;
-use PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollection;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Credits\MockCreditsCollectionBuilder;
 use PHPUnit\Framework\TestCase;
 use Sulu\Component\Webspace\Analyzer\Attributes\RequestAttributes;
@@ -23,17 +22,17 @@ final class MediaCreditsExtensionTest extends TestCase
     {
         $this->creditsCollectionBuilder = new MockCreditsCollectionBuilder();
         $this->requestStack = new RequestStack();
-        
+
         $this->extension = new MediaCreditsExtension(
             $this->creditsCollectionBuilder,
-            $this->requestStack
+            $this->requestStack,
         );
     }
 
     public function testGetFunctionsReturnsMediaCreditsFunction(): void
     {
         $functions = $this->extension->getFunctions();
-        
+
         self::assertCount(1, $functions);
         self::assertInstanceOf(TwigFunction::class, $functions[0]);
         self::assertSame('media_credits', $functions[0]->getName());

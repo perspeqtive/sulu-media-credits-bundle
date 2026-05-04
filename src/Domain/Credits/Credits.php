@@ -13,8 +13,7 @@ readonly class Credits
         public string $mediaName,
         public ?string $copyright,
         public ?string $credit,
-        public ?MediaReferenceCollection $references
-    )
-    {
+        public ?MediaReferenceCollection $references,
+    ) {
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu;
 
+use BadMethodCallException;
 use Sulu\Bundle\ReferenceBundle\Domain\Model\ReferenceInterface;
 use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
 
@@ -22,14 +23,14 @@ final class MockReferenceRepository implements ReferenceRepositoryInterface
         string $referenceTitle,
         string $referenceContext,
         string $referenceProperty,
-        array $referenceRouterAttributes = []
+        array $referenceRouterAttributes = [],
     ): ReferenceInterface {
-        throw new \BadMethodCallException('Not implemented');
+        throw new BadMethodCallException('Not implemented');
     }
 
     public function getOneBy(array $filters): ReferenceInterface
     {
-        throw new \BadMethodCallException('Not implemented');
+        throw new BadMethodCallException('Not implemented');
     }
 
     public function findOneBy(array $filters): ?ReferenceInterface
@@ -40,6 +41,7 @@ final class MockReferenceRepository implements ReferenceRepositoryInterface
     public function findFlatBy(array $filters = [], array $sortBys = [], array $fields = [], bool $distinct = false): iterable
     {
         $this->requestedFilters = $filters;
+
         return $this->flatResultsToReturn;
     }
 
@@ -48,8 +50,19 @@ final class MockReferenceRepository implements ReferenceRepositoryInterface
         return 0;
     }
 
-    public function add(ReferenceInterface $reference): void {}
-    public function remove(ReferenceInterface $reference): void {}
-    public function removeBy(array $filters): void {}
-    public function flush(): void {}
+    public function add(ReferenceInterface $reference): void
+    {
+    }
+
+    public function remove(ReferenceInterface $reference): void
+    {
+    }
+
+    public function removeBy(array $filters): void
+    {
+    }
+
+    public function flush(): void
+    {
+    }
 }

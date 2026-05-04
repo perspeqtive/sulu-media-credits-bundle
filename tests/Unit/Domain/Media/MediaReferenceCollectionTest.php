@@ -9,6 +9,8 @@ use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\MediaReferenceCollection;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockUrlRepository;
 use PHPUnit\Framework\TestCase;
 
+use function iterator_to_array;
+
 final class MediaReferenceCollectionTest extends TestCase
 {
     private MediaReferenceCollection $collection;
@@ -20,7 +22,7 @@ final class MediaReferenceCollectionTest extends TestCase
         $this->urlRepository = new MockUrlRepository();
         $this->references = [
             ['referenceTitle' => 'Ref 1', 'referenceResourceId' => '1', 'referenceLocale' => 'de'],
-            ['referenceTitle' => 'Ref 2', 'referenceResourceId' => '2']
+            ['referenceTitle' => 'Ref 2', 'referenceResourceId' => '2'],
         ];
         $this->collection = new MediaReferenceCollection($this->references, $this->urlRepository);
     }
@@ -28,14 +30,14 @@ final class MediaReferenceCollectionTest extends TestCase
     public function testGetNextYieldsMediaReferences(): void
     {
         $this->urlRepository->urlToReturn = 'https://example.com';
-        
+
         $results = iterator_to_array($this->collection->getNext());
-        
+
         self::assertCount(2, $results);
         self::assertInstanceOf(MediaReference::class, $results[0]);
         self::assertSame('Ref 1', $results[0]->title);
         self::assertSame('https://example.com', $results[0]->url);
-        
+
         self::assertSame('Ref 2', $results[1]->title);
         // Test defaults to 'de' if locale is missing in reference
         self::assertSame('de', $this->urlRepository->requestedLocale);

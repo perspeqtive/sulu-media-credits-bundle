@@ -22,18 +22,18 @@ final class MediaReferenceCollectionBuilderTest extends TestCase
         $this->urlRepository = new MockUrlRepository();
         $this->builder = new MediaReferenceCollectionBuilder(
             $this->referenceRepository,
-            $this->urlRepository
+            $this->urlRepository,
         );
     }
 
     public function testBuildReturnsMediaReferenceCollection(): void
     {
         $media = new Media(1, 'Title', 'Copyright', 'Credit');
-        
+
         $this->referenceRepository->flatResultsToReturn = [];
 
         $result = $this->builder->build($media);
-        
+
         self::assertSame('1', (string) $this->referenceRepository->requestedFilters['resourceId']);
         self::assertSame('media', (string) $this->referenceRepository->requestedFilters['resourceKey']);
         self::assertSame('pages', (string) $this->referenceRepository->requestedFilters['referenceResourceKey']);

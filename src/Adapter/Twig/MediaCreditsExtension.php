@@ -14,9 +14,8 @@ final class MediaCreditsExtension extends AbstractExtension
 {
     public function __construct(
         private readonly CreditsCollectionBuilderInterface $creditsListBuilder,
-        private readonly RequestStack $requestStack
-    )
-    {
+        private readonly RequestStack $requestStack,
+    ) {
     }
 
     public function getFunctions(): array
@@ -26,13 +25,11 @@ final class MediaCreditsExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * @return CreditsCollection
-     */
     public function getMediaCredits(): CreditsCollection
     {
         $request = $this->requestStack->getCurrentRequest();
         $locale = $request?->attributes->get('_sulu')?->getAttribute('locale') ?? 'de';
+
         return $this->creditsListBuilder->build($locale);
     }
 }

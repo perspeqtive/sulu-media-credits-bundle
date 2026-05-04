@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Sulu\Url;
 
+use Exception;
 use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository;
-use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockBasePageDocument;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockDocumentManager;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockWebspaceManager;
 use PHPUnit\Framework\TestCase;
@@ -23,7 +23,7 @@ final class UrlRepositoryTest extends TestCase
         $this->webspaceManager = new MockWebspaceManager();
         $this->repository = new UrlRepository(
             $this->documentManager,
-            $this->webspaceManager
+            $this->webspaceManager,
         );
     }
 
@@ -51,7 +51,7 @@ final class UrlRepositoryTest extends TestCase
 
     public function testFindReturnsNullOnException(): void
     {
-        $this->documentManager->exceptionToThrow = new \Exception();
+        $this->documentManager->exceptionToThrow = new Exception();
 
         $result = $this->repository->find('id', 'de');
 

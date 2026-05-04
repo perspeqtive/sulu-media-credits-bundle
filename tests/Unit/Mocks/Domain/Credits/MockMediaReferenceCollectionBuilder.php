@@ -16,6 +16,7 @@ final class MockMediaReferenceCollectionBuilder implements MediaReferenceCollect
     public function build($media): MediaReferenceCollection
     {
         $this->requestedMedia = $media;
+
         return $this->collectionToReturn;
     }
 }

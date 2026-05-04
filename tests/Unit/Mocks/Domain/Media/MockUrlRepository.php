@@ -16,6 +16,7 @@ final class MockUrlRepository implements UrlRepositoryInterface
     {
         $this->requestedId = $id;
         $this->requestedLocale = $locale;
+
         return $this->urlToReturn;
     }
 }

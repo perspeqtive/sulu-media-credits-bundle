@@ -12,6 +12,8 @@ use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Credits\MockMediaRepo
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockUrlRepository;
 use PHPUnit\Framework\TestCase;
 
+use function iterator_to_array;
+
 final class CreditsCollectionBuilderTest extends TestCase
 {
     private CreditsCollectionBuilder $builder;
@@ -24,7 +26,7 @@ final class CreditsCollectionBuilderTest extends TestCase
         $this->referenceCollectionBuilder = new MockMediaReferenceCollectionBuilder();
         $this->builder = new CreditsCollectionBuilder(
             $this->mediaRepository,
-            $this->referenceCollectionBuilder
+            $this->referenceCollectionBuilder,
         );
     }
 
@@ -32,18 +34,18 @@ final class CreditsCollectionBuilderTest extends TestCase
     {
         $mediaWithCredits = new Media(1, 'Title 1', 'Copyright 1', 'Credit 1');
         $mediaWithoutCredits = new Media(2, 'Title 2', null, null);
-        
+
         $this->mediaRepository->mediaToReturn = [$mediaWithCredits, $mediaWithoutCredits];
         $this->referenceCollectionBuilder->collectionToReturn = new MediaReferenceCollection(
             [],
-            new MockUrlRepository()
+            new MockUrlRepository(),
         );
 
         $collection = $this->builder->build('de');
 
         self::assertCount(1, $collection);
         self::assertSame('de', $this->mediaRepository->requestedLocale);
-        
+
         $credits = iterator_to_array($collection)[0];
         self::assertSame(1, $credits->mediaId);
         self::assertSame('Title 1', $credits->mediaName);

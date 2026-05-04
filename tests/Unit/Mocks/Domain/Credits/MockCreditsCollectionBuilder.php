@@ -9,14 +9,16 @@ use PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilderInterf
 
 final class MockCreditsCollectionBuilder implements CreditsCollectionBuilderInterface
 {
-
     public string $requestedLocale;
 
-    public function __construct(public CreditsCollection $collectionToReturn = new CreditsCollection()) {}
+    public function __construct(public CreditsCollection $collectionToReturn = new CreditsCollection())
+    {
+    }
 
     public function build(string $locale = 'de'): CreditsCollection
     {
         $this->requestedLocale = $locale;
+
         return $this->collectionToReturn;
     }
 }
