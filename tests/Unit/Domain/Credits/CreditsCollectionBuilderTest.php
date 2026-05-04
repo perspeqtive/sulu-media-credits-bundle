@@ -48,7 +48,7 @@ final class CreditsCollectionBuilderTest extends TestCase
 
         $credits = iterator_to_array($collection)[0];
         self::assertSame(1, $credits->mediaId);
-        self::assertSame('Title 1', $credits->mediaName);
+        self::assertSame('Title 1', $credits->title);
         self::assertSame('Copyright 1', $credits->copyright);
         self::assertSame('Credit 1', $credits->credit);
         self::assertSame($this->referenceCollectionBuilder->collectionToReturn, $credits->references);

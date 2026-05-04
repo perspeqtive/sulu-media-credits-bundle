@@ -10,7 +10,7 @@ readonly class Credits
 {
     public function __construct(
         public int $mediaId,
-        public string $mediaName,
+        public string $title,
         public string $copyright,
         public string $credit,
         public MediaReferenceCollection $references,

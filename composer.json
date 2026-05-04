@@ -25,7 +25,8 @@
   },
   "require-dev": {
     "doctrine/persistence": "^3.0",
-    "jackalope/jackalope-doctrine-dbal": "^2.0"
+    "jackalope/jackalope-doctrine-dbal": "^2.0",
+    "phpunit/phpunit": "^12"
   },
   "autoload": {
     "psr-4": {
