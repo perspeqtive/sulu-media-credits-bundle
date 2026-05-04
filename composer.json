@@ -3,11 +3,20 @@
   "description": "Display media credits on your website",
   "minimum-stability": "stable",
   "license": "MIT",
+  "type": "sulu-bundle",
   "authors": [
     {
       "name": "PERSPEQTIVE GmbH",
       "email": "mail@perspeqtive.de"
     }
+  ],
+  "keywords": [
+    "sulu",
+    "media",
+    "credits",
+    "media-credits",
+    "bundle",
+    "copyright"
   ],
   "require": {
     "php": "^8.3",
