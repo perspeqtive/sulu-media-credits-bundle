@@ -6,6 +6,8 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Domain\Credits;
 
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\Credits;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollection;
+use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\MediaReferenceCollection;
+use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockUrlRepository;
 use PHPUnit\Framework\TestCase;
 
 final class CreditsCollectionTest extends TestCase
@@ -19,7 +21,13 @@ final class CreditsCollectionTest extends TestCase
 
     public function testAddAddsCreditsToCollection(): void
     {
-        $credits = new Credits(1, 'Media 1', 'Copyright 1', 'Credit 1', null);
+        $credits = new Credits(
+            1,
+            'Media 1',
+            'Copyright 1',
+            'Credit 1',
+            new MediaReferenceCollection([], new MockUrlRepository() )
+        );
 
         $this->collection->add($credits);
 

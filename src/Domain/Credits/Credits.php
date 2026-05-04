@@ -11,9 +11,9 @@ readonly class Credits
     public function __construct(
         public int $mediaId,
         public string $mediaName,
-        public ?string $copyright,
-        public ?string $credit,
-        public ?MediaReferenceCollection $references,
+        public string $copyright,
+        public string $credit,
+        public MediaReferenceCollection $references,
     ) {
     }
 }

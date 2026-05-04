@@ -24,8 +24,8 @@ final readonly class CreditsCollectionBuilder implements CreditsCollectionBuilde
             $credits->add(new Credits(
                 $media->id,
                 $media->title,
-                $media->copyright,
-                $media->credit,
+                (string)$media->copyright,
+                (string)$media->credit,
                 $this->referenceCollectionBuilder->build($media),
             ));
         }
