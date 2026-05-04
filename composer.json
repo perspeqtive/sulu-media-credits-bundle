@@ -1,0 +1,39 @@
+{
+  "name": "perspeqtive/sulu-media-credits-bundle",
+  "description": "Display media credits on your website",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "PERSPEQTIVE GmbH",
+      "email": "mail@perspeqtive.de"
+    }
+  ],
+  "require": {
+    "php": "^8.3",
+    "sulu/sulu": "~2.6"
+  },
+  "require-dev": {
+    "doctrine/persistence": "^3.0",
+    "jackalope/jackalope-doctrine-dbal": "^2.0",
+    "perspeqtive/dev-dependencies": "^1.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "PERSPEQTIVE\\MediaCreditsBundle\\": "src/",
+      "PERSPEQTIVE\\MediaCreditsBundle\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": true,
+      "perspeqtive/dev-dependencies": true
+    }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:perspeqtive/dev-dependencies.git"
+    }
+  ]
+}

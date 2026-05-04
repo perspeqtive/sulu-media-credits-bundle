@@ -1,0 +1,35 @@
+services:
+  _defaults:
+    autowire: false
+    autoconfigure: false
+
+  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository:
+    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository
+    arguments:
+      $documentManager: '@sulu_document_manager.document_manager'
+      $webspaceManager: '@sulu_core.webspace.webspace_manager'
+
+  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder:
+    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder
+    arguments:
+      $referenceRepository: '@sulu_reference.reference_repository'
+      $urlRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository'
+
+  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaManager:
+    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaManager
+    arguments:
+      $mediaManager: '@sulu_media.media_manager'
+
+  PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder:
+    class: PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder
+    arguments:
+      $mediaRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaManager'
+      $referenceCollectionBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder'
+
+  PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension:
+    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension
+    arguments:
+      $creditsListBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder'
+      $requestStack: '@request_stack'
+    tags:
+      - { name: twig.extension }

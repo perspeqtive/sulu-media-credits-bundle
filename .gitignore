@@ -1,0 +1,8 @@
+/.idea
+/.aiassistant
+/.phpunit.cache
+
+/vendor
+
+/AGENTS.md
+/composer.lock
