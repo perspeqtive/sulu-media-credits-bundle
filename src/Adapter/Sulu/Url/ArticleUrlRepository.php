@@ -33,6 +33,9 @@ readonly class ArticleUrlRepository implements UrlRepositoryByTypeInterface
 
     public function isResponsible(string $type): bool
     {
+        if (class_exists(ArticleDocument::class) === false) {
+            return false;
+        }
         return ArticleDocument::RESOURCE_KEY === $type;
     }
 }

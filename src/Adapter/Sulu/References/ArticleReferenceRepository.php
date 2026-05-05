@@ -18,6 +18,10 @@ class ArticleReferenceRepository implements ReferenceByTypeRepositoryInterface
 
     public function findReferences(string $mediaId): iterable
     {
+        if(class_exists(ArticleDocument::class) === false) {
+            return [];
+        }
+
         return $this->referenceRepository->findFlatBy(
             [
                 'resourceKey' => MediaInterface::RESOURCE_KEY,
