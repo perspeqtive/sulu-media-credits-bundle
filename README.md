@@ -11,7 +11,7 @@ The Sulu Media Credits Bundle enables the automatic listing of media credits for
 *   **Additional Info:** Considers copyright information and credit fields from media metadata.
 *   **Memory Optimization:** Uses generators to reduce memory usage.
 *   **Linking:** Provides links to the pages where the media is used (if applicable).
-*   **Extendable:** Easily add your own logic for additional media types.
+*   **Extendable:** Easily add your own logic for additional content types.
 
 ## 🛠️ Installation
 
@@ -82,10 +82,12 @@ The `media_credits()` function returns a `CreditsCollection` object, which itera
 
 Within `item.references.next` (MediaReference):
 
-| Property | Type | Description |
-| :--- | :--- | :--- |
-| `title` | `string` | Title of the linked page/resource |
-| `url` | `string` | URL to the resource |
+| Property     | Type | Description                                        |
+|:-------------| :--- |:---------------------------------------------------|
+| `title`      | `string` | Title of the linked page/resource                  |
+| `resourceId` | `string` | The target resources unique identifier             |
+| `resourceType`      | `string` | The target resource key like 'pages' or 'articles' |
+| `url`        | `string` | URL to the resource                                |
 
 ## ⚠️ Caution:
 
