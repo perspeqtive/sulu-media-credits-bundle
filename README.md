@@ -93,7 +93,7 @@ Within `item.references.next` (MediaReference):
 
 Only images directly used in page-types are considered for reference linking. When using snippets or custom entities, the references are not returned. The credit and copyright information is still available.
 
-## Extending the Bundle
+## 🛠️ Extending the Bundle
 
 If you want to support additional media references (e.g., from custom entities or snippets), you can extend the bundle by implementing two interfaces.
 
