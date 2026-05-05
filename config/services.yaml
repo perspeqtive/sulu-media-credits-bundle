@@ -1,35 +1,69 @@
 services:
-  _defaults:
-    autowire: false
-    autoconfigure: false
+    _defaults:
+        autowire: false
+        autoconfigure: false
 
-  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository:
-    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository
-    arguments:
-      $documentManager: '@sulu_document_manager.document_manager'
-      $webspaceManager: '@sulu_core.webspace.webspace_manager'
+    PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepository
+        arguments:
+            $urlRepositories: !tagged_iterator perspeqtive.media_credits.url_repository
 
-  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder:
-    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder
-    arguments:
-      $referenceRepository: '@sulu_reference.reference_repository'
-      $urlRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository'
+    PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\PageUrlRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\PageUrlRepository
+        arguments:
+            $documentManager: '@sulu_document_manager.document_manager'
+            $webspaceManager: '@sulu_core.webspace.webspace_manager'
+        tags:
+            - { name: perspeqtive.media_credits.url_repository}
 
-  PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository:
-    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository
-    arguments:
-      $entityManager: '@doctrine.orm.entity_manager'
+    PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\ArticleUrlRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\ArticleUrlRepository
+        arguments:
+            $documentManager: '@sulu_document_manager.document_manager'
+            $webspaceManager: '@sulu_core.webspace.webspace_manager'
+        tags:
+            - { name: perspeqtive.media_credits.url_repository }
 
-  PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder:
-    class: PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder
-    arguments:
-      $mediaRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository'
-      $referenceCollectionBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder'
+    PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceFinderRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceFinderRepository
+        arguments:
+            $referenceByTypeRepositories: !tagged_iterator perspeqtive.media_credits.reference_finder_repository
 
-  PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension:
-    class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension
-    arguments:
-      $creditsListBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder'
-      $requestStack: '@request_stack'
-    tags:
-      - { name: twig.extension }
+    PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\PageReferenceRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\PageReferenceRepository
+        arguments:
+            $referenceRepository: '@sulu_reference.reference_repository'
+        tags:
+            - { name: perspeqtive.media_credits.reference_finder_repository, indexed_by: 'pages' }
+
+    PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\ArticleReferenceRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\ArticleReferenceRepository
+        arguments:
+            $referenceRepository: '@sulu_reference.reference_repository'
+        tags:
+            - { name: perspeqtive.media_credits.reference_finder_repository, indexed_by: 'articles' }
+
+    PERSPEQTIVE\MediaCreditsBundle\Domain\References\MediaReferenceCollectionBuilder:
+        class: PERSPEQTIVE\MediaCreditsBundle\Domain\References\MediaReferenceCollectionBuilder
+        arguments:
+            $referenceFinderRepository: '@PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceFinderRepository'
+            $urlRepository: '@PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepository'
+
+    PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository:
+        class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
+
+    PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder:
+        class: PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder
+        arguments:
+            $mediaRepository: '@PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Media\MediaRepository'
+            $referenceCollectionBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Domain\References\MediaReferenceCollectionBuilder'
+
+    PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension:
+        class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Twig\MediaCreditsExtension
+        arguments:
+            $creditsListBuilder: '@PERSPEQTIVE\MediaCreditsBundle\Domain\Credits\CreditsCollectionBuilder'
+            $requestStack: '@request_stack'
+        tags:
+            - { name: twig.extension }

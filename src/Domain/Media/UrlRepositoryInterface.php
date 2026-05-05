@@ -6,5 +6,5 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Domain\Media;
 
 interface UrlRepositoryInterface
 {
-    public function find(string $id, string $locale): ?string;
+    public function find(string $id, string $type, string $locale): ?string;
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Sulu\References;
 
-use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\MediaReferenceCollectionBuilder;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\Media;
+use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\MediaReferenceCollectionBuilder;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockUrlRepository;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockReferenceRepository;
 use PHPUnit\Framework\TestCase;
