@@ -9,7 +9,9 @@ The Sulu Media Credits Bundle enables the automatic listing of media credits for
 *   **Automatic Detection:** Detects media references in various content types.
 *   **Centralized Display:** Collects all media credits of the current page in one place (e.g., in the masthead).
 *   **Additional Info:** Considers copyright information and credit fields from media metadata.
+*   **Memory Optimization:** Uses generators to reduce memory usage.
 *   **Linking:** Provides links to the pages where the media is used (if applicable).
+*   **Extendable:** Easily add your own logic for additional media types.
 
 ## 🛠️ Installation
 
@@ -88,6 +90,95 @@ Within `item.references.next` (MediaReference):
 ## ⚠️ Caution:
 
 Only images directly used in page-types are considered for reference linking. When using snippets or custom entities, the references are not returned. The credit and copyright information is still available.
+
+## Extending the Bundle
+
+If you want to support additional media references (e.g., from custom entities or snippets), you can extend the bundle by implementing two interfaces.
+
+### 1. Implement `ReferenceByTypeRepositoryInterface`
+
+This interface is responsible for finding references for a specific media ID.
+
+```php
+namespace App\Repository;
+
+use PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceByTypeRepositoryInterface;
+
+class MyCustomReferenceRepository implements ReferenceByTypeRepositoryInterface
+{
+    public function findReferences(string $mediaId): iterable
+    {
+        // Your logic to find references for the given mediaId
+        // Should return an iterable of arrays with the following keys:
+        // 'referenceTitle', 'referenceResourceId', 'referenceResourceKey', 'referenceLocale'
+        yield [
+            'referenceResourceId' => '123',
+            'referenceResourceKey' => 'my_custom_type',
+            'referenceTitle' => 'My Custom Entity Title',
+            'referenceLocale' => 'en',
+        ];
+    }
+}
+```
+
+### 2. Implement `UrlRepositoryByTypeInterface`
+
+This interface is responsible for generating the URL for a found reference.
+
+```php
+namespace App\Repository;
+
+use PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepositoryByTypeInterface;
+
+class MyCustomUrlRepository implements UrlRepositoryByTypeInterface
+{
+    public function find(string $id, string $locale): ?string
+    {
+        // Generate the URL for your custom entity
+        return '/de/my-custom-entity/' . $id;
+    }
+
+    public function isResponsible(string $type): bool
+    {
+        return $type === 'my_custom_type';
+    }
+}
+```
+
+### 3. Register the Services
+
+The bundle uses [tagged iterators](https://symfony.com/doc/current/service_container/tags.html#reference-tagged-services) to collect all repositories.
+
+#### Via Autowire & Autoconfigure
+
+If your application uses `autoconfigure: true`, the services will be registered automatically because the bundle registers the interfaces for autoconfiguration.
+
+```yaml
+# config/services.yaml
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Repository\MyCustomReferenceRepository: ~
+    App\Repository\MyCustomUrlRepository: ~
+```
+
+#### Manual Registration
+
+If you don't use autoconfigure, you must add the tags manually:
+
+```yaml
+# config/services.yaml
+services:
+    App\Repository\MyCustomReferenceRepository:
+        tags:
+            - { name: 'perspeqtive.media_credits.reference_finder_repository' }
+
+    App\Repository\MyCustomUrlRepository:
+        tags:
+            - { name: 'perspeqtive.media_credits.url_repository' }
+```
 
 ## 👩‍🍳 Contribution
 
