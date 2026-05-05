@@ -17,6 +17,8 @@ readonly class MediaReferenceCollection
         foreach ($this->references as $reference) {
             yield new MediaReference(
                 $reference['referenceTitle'],
+                $reference['referenceResourceId'],
+                $reference['referenceResourceKey'],
                 $this->urlRepository->find(
                     $reference['referenceResourceId'],
                     $reference['referenceResourceKey'],

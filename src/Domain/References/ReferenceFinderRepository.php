@@ -24,9 +24,14 @@ final readonly class ReferenceFinderRepository implements ReferenceFinderReposit
 
     public function findReferences(string $mediaId): iterable
     {
+        $allReferences = [];
         foreach($this->referenceByTypeRepositories as $referenceByTypeRepository) {
-            yield from $referenceByTypeRepository->findReferences($mediaId);
+            foreach ($referenceByTypeRepository->findReferences($mediaId) as $reference) {
+                $allReferences[] = $reference;
+            }
         }
+
+        return $allReferences;
     }
 
 }

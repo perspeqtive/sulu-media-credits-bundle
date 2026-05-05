@@ -7,12 +7,12 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceByTypeRepositoryInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\PageBundle\Document\BasePageDocument;
-use Sulu\Bundle\ReferenceBundle\Infrastructure\Doctrine\Repository\ReferenceRepository;
+use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 
 class PageReferenceRepository implements ReferenceByTypeRepositoryInterface
 {
-    public function __construct(private ReferenceRepository $referenceRepository)
+    public function __construct(private ReferenceRepositoryInterface $referenceRepository)
     {
 
     }

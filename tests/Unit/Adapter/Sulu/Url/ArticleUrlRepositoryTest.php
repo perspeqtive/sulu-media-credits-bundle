@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Sulu\Url;
 
 use Exception;
-use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\UrlRepository;
+use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\ArticleUrlRepository;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockDocumentManager;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockWebspaceManager;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\PageBundle\Document\BasePageDocument;
+use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
 
-final class UrlRepositoryTest extends TestCase
+final class ArticleUrlRepositoryTest extends TestCase
 {
-    private UrlRepository $repository;
+    private ArticleUrlRepository $repository;
     private MockDocumentManager $documentManager;
     private MockWebspaceManager $webspaceManager;
 
@@ -21,21 +21,27 @@ final class UrlRepositoryTest extends TestCase
     {
         $this->documentManager = new MockDocumentManager();
         $this->webspaceManager = new MockWebspaceManager();
-        $this->repository = new UrlRepository(
+        $this->repository = new ArticleUrlRepository(
             $this->documentManager,
             $this->webspaceManager,
         );
     }
 
-    public function testFindReturnsUrlFromWebspaceManager(): void
+    public function testIsResponsible(): void
     {
-        $id = 'some-uuid';
-        $locale = 'en';
-        $resourceSegment = '/some-path';
-        $expectedUrl = 'https://example.com/en/some-path';
+        self::assertTrue($this->repository->isResponsible('articles'));
+        self::assertFalse($this->repository->isResponsible('pages'));
+    }
 
-        $document = new BasePageDocument();
-        $document->setResourceSegment($resourceSegment);
+    public function testFindReturnsUrl(): void
+    {
+        $id = 'uuid';
+        $locale = 'de';
+        $path = '/path';
+        $expectedUrl = 'https://example.com/de/path';
+
+        $document = new ArticleDocument();
+        $document->setRoutePath($path);
 
         $this->documentManager->documentToReturn = $document;
         $this->webspaceManager->urlToReturn = $expectedUrl;
@@ -44,17 +50,12 @@ final class UrlRepositoryTest extends TestCase
 
         self::assertSame($expectedUrl, $result);
         self::assertSame($id, $this->documentManager->requestedId);
-        self::assertSame($locale, $this->documentManager->requestedLocale);
-        self::assertSame($resourceSegment, $this->webspaceManager->requestedResourceLocator);
-        self::assertSame($locale, $this->webspaceManager->requestedLocale);
+        self::assertSame($path, $this->webspaceManager->requestedResourceLocator);
     }
 
     public function testFindReturnsNullOnException(): void
     {
         $this->documentManager->exceptionToThrow = new Exception();
-
-        $result = $this->repository->find('id', 'de');
-
-        self::assertNull($result);
+        self::assertNull($this->repository->find('id', 'de'));
     }
 }

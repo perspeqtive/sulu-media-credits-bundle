@@ -6,7 +6,12 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Domain\Media;
 
 class MediaReference
 {
-    public function __construct(public string $title, public string $url)
+    public function __construct(
+        public string $title,
+        public string $resourceId,
+        public string $resourceType,
+        public ?string $url,
+    )
     {
     }
 }

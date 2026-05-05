@@ -34,14 +34,14 @@ services:
         arguments:
             $referenceRepository: '@sulu_reference.reference_repository'
         tags:
-            - { name: perspeqtive.media_credits.reference_finder_repository, indexed_by: 'pages' }
+            - { name: perspeqtive.media_credits.reference_finder_repository }
 
     PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\ArticleReferenceRepository:
         class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\ArticleReferenceRepository
         arguments:
             $referenceRepository: '@sulu_reference.reference_repository'
         tags:
-            - { name: perspeqtive.media_credits.reference_finder_repository, indexed_by: 'articles' }
+            - { name: perspeqtive.media_credits.reference_finder_repository }
 
     PERSPEQTIVE\MediaCreditsBundle\Domain\References\MediaReferenceCollectionBuilder:
         class: PERSPEQTIVE\MediaCreditsBundle\Domain\References\MediaReferenceCollectionBuilder

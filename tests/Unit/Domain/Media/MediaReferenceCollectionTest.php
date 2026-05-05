@@ -21,8 +21,8 @@ final class MediaReferenceCollectionTest extends TestCase
     {
         $this->urlRepository = new MockUrlRepository();
         $this->references = [
-            ['referenceTitle' => 'Ref 1', 'referenceResourceId' => '1', 'referenceLocale' => 'de'],
-            ['referenceTitle' => 'Ref 2', 'referenceResourceId' => '2'],
+            ['referenceTitle' => 'Ref 1', 'referenceResourceId' => '1', 'referenceResourceKey' => 'pages', 'referenceLocale' => 'de'],
+            ['referenceTitle' => 'Ref 2', 'referenceResourceId' => '2', 'referenceResourceKey' => 'articles'],
         ];
         $this->collection = new MediaReferenceCollection($this->references, $this->urlRepository);
     }
@@ -39,7 +39,6 @@ final class MediaReferenceCollectionTest extends TestCase
         self::assertSame('https://example.com', $results[0]->url);
 
         self::assertSame('Ref 2', $results[1]->title);
-        // Test defaults to 'de' if locale is missing in reference
         self::assertSame('de', $this->urlRepository->requestedLocale);
     }
 }
