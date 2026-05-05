@@ -26,7 +26,7 @@ final class CreditsCollectionTest extends TestCase
             'Media 1',
             'Copyright 1',
             'Credit 1',
-            new MediaReferenceCollection([], new MockUrlRepository() )
+            new MediaReferenceCollection([], new MockUrlRepository()),
         );
 
         $this->collection->add($credits);

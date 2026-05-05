@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Domain\Url;
 
+use Exception;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepository;
-use PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepositoryByTypeInterface;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Url\MockUrlRepositoryByType;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class UrlRepositoryTest extends TestCase
 {
     public function testFindIteratesRepositories(): void
     {
         $repo1 = new MockUrlRepositoryByType([], false);
-        $repo2 = new MockUrlRepositoryByType([ '1' => 'https://example.com'], true);
-
+        $repo2 = new MockUrlRepositoryByType(['1' => 'https://example.com'], true);
 
         $repository = new UrlRepository([$repo1, $repo2]);
         $result = $repository->find('1', 'pages', 'de');
@@ -35,9 +35,9 @@ final class UrlRepositoryTest extends TestCase
 
     public function testConstructorThrowsExceptionOnInvalidRepo(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('All url repositories must implement UrlRepositoryByTypeInterface');
 
-        new UrlRepository([new \stdClass()]);
+        new UrlRepository([new stdClass()]);
     }
 }

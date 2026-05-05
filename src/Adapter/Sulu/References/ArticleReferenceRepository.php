@@ -7,7 +7,6 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceByTypeRepositoryInterface;
 use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
-use Sulu\Bundle\PageBundle\Document\BasePageDocument;
 use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 
@@ -15,7 +14,6 @@ class ArticleReferenceRepository implements ReferenceByTypeRepositoryInterface
 {
     public function __construct(private ReferenceRepositoryInterface $referenceRepository)
     {
-
     }
 
     public function findReferences(string $mediaId): iterable

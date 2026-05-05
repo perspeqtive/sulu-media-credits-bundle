@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Domain\References;
 
-use PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceByTypeRepositoryInterface;
+use Exception;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceFinderRepository;
-use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockReferenceFinderRepository;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\References\MockReferenceByTypeRepository;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+
+use function iterator_to_array;
 
 final class ReferenceFinderRepositoryTest extends TestCase
 {
@@ -25,9 +27,9 @@ final class ReferenceFinderRepositoryTest extends TestCase
 
     public function testConstructorThrowsExceptionOnInvalidRepo(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('All reference repositories must implement ReferenceByTypeRepositoryInterface');
 
-        new ReferenceFinderRepository([new \stdClass()]);
+        new ReferenceFinderRepository([new stdClass()]);
     }
 }

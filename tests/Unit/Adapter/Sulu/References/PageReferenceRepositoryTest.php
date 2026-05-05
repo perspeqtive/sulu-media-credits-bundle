@@ -7,9 +7,6 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Sulu\References;
 use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\PageReferenceRepository;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockReferenceRepository;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
-use Sulu\Bundle\PageBundle\Document\BasePageDocument;
-use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 
 final class PageReferenceRepositoryTest extends TestCase

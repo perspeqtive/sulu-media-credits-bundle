@@ -22,7 +22,7 @@ readonly class MediaReferenceCollection
                 $this->urlRepository->find(
                     $reference['referenceResourceId'],
                     $reference['referenceResourceKey'],
-                $reference['referenceLocale'] ?? 'de'
+                    $reference['referenceLocale'] ?? 'de',
                 ),
             );
         }

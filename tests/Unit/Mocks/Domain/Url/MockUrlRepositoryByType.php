@@ -8,8 +8,9 @@ use PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepositoryByTypeInterface;
 
 class MockUrlRepositoryByType implements UrlRepositoryByTypeInterface
 {
-
-    public function __construct(public array $urlsToReturn = [], public bool $isResponsible = true) {}
+    public function __construct(public array $urlsToReturn = [], public bool $isResponsible = true)
+    {
+    }
 
     public function find(string $id, string $locale): ?string
     {

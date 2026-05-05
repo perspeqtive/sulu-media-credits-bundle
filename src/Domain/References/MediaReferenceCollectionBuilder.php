@@ -30,6 +30,6 @@ readonly class MediaReferenceCollectionBuilder implements MediaReferenceCollecti
 
     protected function findMediaReferences(Media $media): iterable
     {
-        return $this->referenceFinderRepository->findReferences((string)$media->id);
+        return $this->referenceFinderRepository->findReferences((string) $media->id);
     }
 }

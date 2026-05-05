@@ -8,12 +8,14 @@ use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\ReferenceFinderRepositoryInterfa
 
 class MockReferenceFinderRepository implements ReferenceFinderRepositoryInterface
 {
+    public function __construct(public array $referencesToReturn = [])
+    {
+    }
 
-    public function __construct(public array $referencesToReturn = []) {}
     public function findReferences(string $mediaId): iterable
     {
-       foreach ($this->referencesToReturn as $reference) {
-           yield $reference;
-       }
+        foreach ($this->referencesToReturn as $reference) {
+            yield $reference;
+        }
     }
 }

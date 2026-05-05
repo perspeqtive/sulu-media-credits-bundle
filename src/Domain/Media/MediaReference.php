@@ -11,7 +11,6 @@ class MediaReference
         public string $resourceId,
         public string $resourceType,
         public ?string $url,
-    )
-    {
+    ) {
     }
 }

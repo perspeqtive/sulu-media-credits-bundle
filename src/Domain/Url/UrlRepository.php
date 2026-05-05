@@ -11,12 +11,12 @@ readonly class UrlRepository implements UrlRepositoryInterface
 {
     /**
      * @param iterable<UrlRepositoryByTypeInterface> $urlRepositories
+     *
      * @throws Exception
      */
     public function __construct(
-        private iterable $urlRepositories
-    )
-    {
+        private iterable $urlRepositories,
+    ) {
         foreach ($this->urlRepositories as $urlRepository) {
             if ($urlRepository instanceof UrlRepositoryByTypeInterface === true) {
                 continue;
@@ -27,12 +27,14 @@ readonly class UrlRepository implements UrlRepositoryInterface
 
     public function find(string $id, string $type, string $locale): ?string
     {
-        foreach($this->urlRepositories as $urlRepository) {
-            if($urlRepository->isResponsible($type) === false) {
+        foreach ($this->urlRepositories as $urlRepository) {
+            if ($urlRepository->isResponsible($type) === false) {
                 continue;
             }
+
             return $urlRepository->find($id, $locale);
         }
+
         return null;
     }
 }

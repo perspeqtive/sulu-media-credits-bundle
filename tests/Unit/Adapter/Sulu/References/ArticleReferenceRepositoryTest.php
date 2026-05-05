@@ -7,9 +7,6 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Sulu\References;
 use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\ArticleReferenceRepository;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockReferenceRepository;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
-use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
-use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
 use Sulu\Component\HttpKernel\SuluKernel;
 
 final class ArticleReferenceRepositoryTest extends TestCase
@@ -30,6 +27,5 @@ final class ArticleReferenceRepositoryTest extends TestCase
         self::assertSame('articles', $referenceRepository->requestedFilters['referenceResourceKey']);
         self::assertSame($mediaId, $referenceRepository->requestedFilters['resourceId']);
         self::assertSame(SuluKernel::CONTEXT_WEBSITE, $referenceRepository->requestedFilters['referenceContext']);
-
     }
 }

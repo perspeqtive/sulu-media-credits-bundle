@@ -14,7 +14,6 @@ class PageReferenceRepository implements ReferenceByTypeRepositoryInterface
 {
     public function __construct(private ReferenceRepositoryInterface $referenceRepository)
     {
-
     }
 
     public function findReferences(string $mediaId): iterable

@@ -21,11 +21,8 @@ class MediaCreditsBundle extends AbstractBundle
             ->addTag('perspeqtive.media_credits.url_repository');
     }
 
-
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
         $container->import(__DIR__ . '/../config/services.yaml');
     }
-
-
 }

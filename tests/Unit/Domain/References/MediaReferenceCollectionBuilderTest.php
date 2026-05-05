@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Domain\References;
 
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\Media;
-use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\MediaReferenceCollection;
-use PERSPEQTIVE\MediaCreditsBundle\Domain\Media\ReferenceFinderRepositoryInterface;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\References\MediaReferenceCollectionBuilder;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockReferenceFinderRepository;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Domain\Media\MockUrlRepository;
 use PHPUnit\Framework\TestCase;
+
+use function iterator_to_array;
 
 final class MediaReferenceCollectionBuilderTest extends TestCase
 {
@@ -42,7 +42,7 @@ final class MediaReferenceCollectionBuilderTest extends TestCase
         $result = $this->builder->build($media);
         $resultData = iterator_to_array($result->getNext());
         self::assertCount(1, $resultData);
-        self::assertSame('15', $resultData[0]->resourceId,);
-        self::assertSame('pages', $resultData[0]->resourceType,);
+        self::assertSame('15', $resultData[0]->resourceId);
+        self::assertSame('pages', $resultData[0]->resourceType);
     }
 }

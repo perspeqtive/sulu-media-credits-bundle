@@ -11,7 +11,10 @@ final class MockUrlRepository implements UrlRepositoryInterface
     public ?string $requestedId = null;
     public ?string $requestedType = null;
     public ?string $requestedLocale = null;
-    public function __construct(public ?string $urlToReturn = null) {}
+
+    public function __construct(public ?string $urlToReturn = null)
+    {
+    }
 
     public function find(string $id, string $type, string $locale): ?string
     {
