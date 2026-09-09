@@ -1,6 +1,6 @@
 # SuluMediaCreditsBundle
 
-[![Packagist Version](https://img.shields.io/packagist/v/perspeqtive/sulu-media-credits-bundle)](https://packagist.org/packages/perspeqtive/sulu-media-credits-bundle)
+![compatibility](https://img.shields.io/badge/sulu%20compatibility-%3E=2.6%20&%20%3E3.0-52b6ca.svg)
 
 The Sulu Media Credits Bundle enables the automatic listing of media credits for media used on the current website. It scans the content via the reference bundle of the current website for linked media and provides them collectively for display.
 
@@ -181,6 +181,12 @@ services:
         tags:
             - { name: 'perspeqtive.media_credits.url_repository' }
 ```
+
+### 4. Implementation Hint
+
+If you want to provide Links to ContentRichEntity objects other than page and article, its easiest to just extend the following classes and provide your custom resource key:
+- `PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\AbstractReferenceRepository` to add the reference itself
+- `PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\AbstractUrlRepository` to add the url to the entity
 
 ## 👩‍🍳 Contribution
 
