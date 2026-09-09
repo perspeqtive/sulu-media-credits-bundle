@@ -19,17 +19,13 @@
             <directory suffix=".php">.</directory>
         </include>
         <exclude>
-            <directory suffix=".php">tests</directory>
+            <directory>tests</directory>
             <directory>vendor</directory>
             <directory>src/DependencyInjection</directory>
             <directory>src/Repository</directory>
             <directory>src/Entity</directory>
             <file>src/Kernel.php</file>
         </exclude>
-        <include>
-            <directory suffix=".php">src</directory>
-            <directory suffix=".php">packages/*/src</directory>
-        </include>
     </source>
 
     <coverage>
