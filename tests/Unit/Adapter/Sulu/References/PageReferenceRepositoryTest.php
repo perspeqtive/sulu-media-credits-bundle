@@ -8,6 +8,7 @@ use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References\PageReferenceReposito
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockReferenceRepository;
 use PHPUnit\Framework\TestCase;
 use Sulu\Component\HttpKernel\SuluKernel;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
 
 final class PageReferenceRepositoryTest extends TestCase
 {
@@ -26,6 +27,6 @@ final class PageReferenceRepositoryTest extends TestCase
         self::assertSame('media', $referenceRepository->requestedFilters['resourceKey']);
         self::assertSame('pages', $referenceRepository->requestedFilters['referenceResourceKey']);
         self::assertSame($mediaId, $referenceRepository->requestedFilters['resourceId']);
-        self::assertSame(SuluKernel::CONTEXT_WEBSITE, $referenceRepository->requestedFilters['referenceContext']);
+        self::assertSame(DimensionContentInterface::STAGE_LIVE, $referenceRepository->requestedFilters['referenceContext']);
     }
 }

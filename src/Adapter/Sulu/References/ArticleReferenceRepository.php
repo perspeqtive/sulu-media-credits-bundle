@@ -5,32 +5,16 @@ declare(strict_types=1);
 namespace PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\References;
 
 use PERSPEQTIVE\MediaCreditsBundle\Domain\References\ReferenceByTypeRepositoryInterface;
-use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
+use Sulu\Article\Domain\Model\Article;
+use Sulu\Article\Domain\Model\ArticleInterface;
 use Sulu\Bundle\MediaBundle\Entity\MediaInterface;
 use Sulu\Bundle\ReferenceBundle\Domain\Repository\ReferenceRepositoryInterface;
-use Sulu\Component\HttpKernel\SuluKernel;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
 
-class ArticleReferenceRepository implements ReferenceByTypeRepositoryInterface
+readonly class ArticleReferenceRepository extends AbstractReferenceRepository implements ReferenceByTypeRepositoryInterface
 {
-    public function __construct(private ReferenceRepositoryInterface $referenceRepository)
+    protected function getResourceKey(): string
     {
-    }
-
-    public function findReferences(string $mediaId): iterable
-    {
-        if(class_exists(ArticleDocument::class) === false) {
-            return [];
-        }
-
-        return $this->referenceRepository->findFlatBy(
-            [
-                'resourceKey' => MediaInterface::RESOURCE_KEY,
-                'resourceId' => $mediaId,
-                'referenceResourceKey' => ArticleDocument::RESOURCE_KEY,
-                'referenceContext' => SuluKernel::CONTEXT_WEBSITE,
-            ],
-            fields: ['referenceTitle', 'referenceResourceId', 'referenceResourceKey', 'referenceLocale'],
-            distinct: true,
-        );
+        return ArticleInterface::RESOURCE_KEY;
     }
 }

@@ -11,16 +11,16 @@ services:
     PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\PageUrlRepository:
         class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\PageUrlRepository
         arguments:
-            $documentManager: '@sulu_document_manager.document_manager'
-            $webspaceManager: '@sulu_core.webspace.webspace_manager'
+            $routeGenerator: '@sulu_route.route_generator'
+            $routeRepository: '@sulu_route.route_repository'
         tags:
             - { name: perspeqtive.media_credits.url_repository}
 
     PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\ArticleUrlRepository:
         class: PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\ArticleUrlRepository
         arguments:
-            $documentManager: '@sulu_document_manager.document_manager'
-            $webspaceManager: '@sulu_core.webspace.webspace_manager'
+            $routeGenerator: '@sulu_route.route_generator'
+            $routeRepository: '@sulu_route.route_repository'
         tags:
             - { name: perspeqtive.media_credits.url_repository }
 

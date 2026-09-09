@@ -6,36 +6,20 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url;
 
 use Exception;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepositoryByTypeInterface;
-use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
-use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Sulu\Article\Domain\Model\Article;
+use Sulu\Article\Domain\Model\ArticleInterface;
+use Sulu\Article\Domain\Repository\ArticleRepositoryInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Route\Application\Routing\Generator\RouteGeneratorInterface;
+use Sulu\Route\Domain\Model\Route;
+use Sulu\Route\Domain\Repository\RouteRepositoryInterface;
 
-readonly class ArticleUrlRepository implements UrlRepositoryByTypeInterface
+readonly class ArticleUrlRepository extends AbstractUrlRepository implements UrlRepositoryByTypeInterface
 {
-    public function __construct(
-        private DocumentManagerInterface $documentManager,
-        private WebspaceManagerInterface $webspaceManager,
-    ) {
-    }
 
-    public function find(string $id, string $locale): ?string
+    protected function getResourceKey(): string
     {
-        try {
-            /** @var ArticleDocument $document */
-            $document = $this->documentManager->find($id, $locale);
-
-            return $this->webspaceManager->findUrlByResourceLocator($document->getRoutePath(), null, $locale);
-        } catch (Exception) {
-        }
-
-        return null;
+        return ArticleInterface::RESOURCE_KEY;
     }
 
-    public function isResponsible(string $type): bool
-    {
-        if (class_exists(ArticleDocument::class) === false) {
-            return false;
-        }
-        return ArticleDocument::RESOURCE_KEY === $type;
-    }
 }

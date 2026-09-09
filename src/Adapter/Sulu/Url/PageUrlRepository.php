@@ -6,33 +6,17 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url;
 
 use Exception;
 use PERSPEQTIVE\MediaCreditsBundle\Domain\Url\UrlRepositoryByTypeInterface;
-use Sulu\Bundle\PageBundle\Document\BasePageDocument;
-use Sulu\Component\DocumentManager\DocumentManagerInterface;
-use Sulu\Component\Webspace\Manager\WebspaceManagerInterface;
+use Sulu\Article\Domain\Model\ArticleInterface;
+use Sulu\Content\Domain\Model\DimensionContentInterface;
+use Sulu\Route\Application\Routing\Generator\RouteGeneratorInterface;
+use Sulu\Page\Domain\Repository\PageRepositoryInterface;
+use Sulu\Page\Domain\Model\PageInterface;
+use Sulu\Route\Domain\Model\Route;
 
-readonly class PageUrlRepository implements UrlRepositoryByTypeInterface
+readonly class PageUrlRepository extends AbstractUrlRepository implements UrlRepositoryByTypeInterface
 {
-    public function __construct(
-        private DocumentManagerInterface $documentManager,
-        private WebspaceManagerInterface $webspaceManager,
-    ) {
-    }
-
-    public function find(string $id, string $locale): ?string
+    protected function getResourceKey(): string
     {
-        try {
-            /** @var BasePageDocument $document */
-            $document = $this->documentManager->find($id, $locale);
-
-            return $this->webspaceManager->findUrlByResourceLocator($document->getResourceSegment(), null, $locale);
-        } catch (Exception) {
-        }
-
-        return null;
-    }
-
-    public function isResponsible(string $type): bool
-    {
-        return BasePageDocument::RESOURCE_KEY === $type;
+        return PageInterface::RESOURCE_KEY;
     }
 }

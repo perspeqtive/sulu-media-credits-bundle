@@ -4,26 +4,26 @@ declare(strict_types=1);
 
 namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Adapter\Sulu\Url;
 
-use Exception;
 use PERSPEQTIVE\MediaCreditsBundle\Adapter\Sulu\Url\ArticleUrlRepository;
-use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockDocumentManager;
-use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockWebspaceManager;
+use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockRouteGenerator;
+use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockRouteRepository;
 use PHPUnit\Framework\TestCase;
-use Sulu\Bundle\ArticleBundle\Document\ArticleDocument;
+use Sulu\Article\Domain\Model\ArticleInterface;
+use Sulu\Route\Domain\Model\Route;
 
 final class ArticleUrlRepositoryTest extends TestCase
 {
     private ArticleUrlRepository $repository;
-    private MockDocumentManager $documentManager;
-    private MockWebspaceManager $webspaceManager;
+    private MockRouteGenerator $routeGenerator;
+    private MockRouteRepository $routeRepository;
 
     protected function setUp(): void
     {
-        $this->documentManager = new MockDocumentManager();
-        $this->webspaceManager = new MockWebspaceManager();
+        $this->routeGenerator = new MockRouteGenerator();
+        $this->routeRepository = new MockRouteRepository();
         $this->repository = new ArticleUrlRepository(
-            $this->documentManager,
-            $this->webspaceManager,
+            $this->routeGenerator,
+            $this->routeRepository
         );
     }
 
@@ -38,24 +38,24 @@ final class ArticleUrlRepositoryTest extends TestCase
         $id = 'uuid';
         $locale = 'de';
         $path = '/path';
-        $expectedUrl = 'https://example.com/de/path';
+        $expectedUrl = 'https://generated.de/path';
 
-        $document = new ArticleDocument();
-        $document->setRoutePath($path);
-
-        $this->documentManager->documentToReturn = $document;
-        $this->webspaceManager->urlToReturn = $expectedUrl;
+        $this->routeRepository->result = new Route(
+            resourceKey: ArticleInterface::RESOURCE_KEY,
+            resourceId: $id,
+            locale: $locale,
+            slug: $path,
+        );
 
         $result = $this->repository->find($id, $locale);
 
         self::assertSame($expectedUrl, $result);
-        self::assertSame($id, $this->documentManager->requestedId);
-        self::assertSame($path, $this->webspaceManager->requestedResourceLocator);
+
     }
 
-    public function testFindReturnsNullOnException(): void
+    public function testFindReturnsNullRouteNotFound(): void
     {
-        $this->documentManager->exceptionToThrow = new Exception();
+        $this->routeRepository->result = null;
         self::assertNull($this->repository->find('id', 'de'));
     }
 }
