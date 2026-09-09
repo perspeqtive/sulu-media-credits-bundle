@@ -21,13 +21,10 @@
   ],
   "require": {
     "php": "^8.3",
-    "sulu/sulu": "~2.6"
+    "sulu/sulu": "^3.0"
   },
   "require-dev": {
-    "doctrine/persistence": "^3.0",
-    "jackalope/jackalope-doctrine-dbal": "^2.0",
-    "phpunit/phpunit": "^12",
-    "sulu/article-bundle": "^2.6"
+    "phpunit/phpunit": "^12"
   },
   "autoload": {
     "psr-4": {
