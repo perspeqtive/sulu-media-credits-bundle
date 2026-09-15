@@ -68,7 +68,6 @@ final class ArticleUrlRepositoryTest extends TestCase
         $id = 'uuid';
         $locale = 'de';
         $path = '/path';
-        $expectedUrl = 'https://generated.de/path';
 
         $this->routeRepository->result = new Route(
             resourceKey: PageInterface::RESOURCE_KEY,
