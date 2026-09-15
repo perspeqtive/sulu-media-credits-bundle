@@ -1,6 +1,6 @@
 # SuluMediaCreditsBundle
 
-![compatibility](https://img.shields.io/badge/sulu%20compatibility-%3E=2.6%20&%20%3E3.0-52b6ca.svg)
+![Static Badge](https://img.shields.io/badge/sulu_compatibility-%5E2.6_%7C%7C_%5E3.0-DCE5E4?labelColor=112A46)
 
 The Sulu Media Credits Bundle enables the automatic listing of media credits for media used on the current website. It scans the content via the reference bundle of the current website for linked media and provides them collectively for display.
 
