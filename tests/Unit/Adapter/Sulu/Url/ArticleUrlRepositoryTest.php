@@ -45,11 +45,14 @@ final class ArticleUrlRepositoryTest extends TestCase
             resourceId: $id,
             locale: $locale,
             slug: $path,
+            webspace: 'default',
         );
 
         $result = $this->repository->find($id, $locale);
 
         self::assertSame($expectedUrl, $result);
+        self::assertSame('default', $this->routeGenerator->webspace);
+        self::assertSame('de', $this->routeGenerator->locale);
 
     }
 
