@@ -4,7 +4,6 @@ namespace PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu;
 
 use Sulu\Route\Application\Routing\Generator\RouteGeneratorInterface;
 use Sulu\Route\Domain\Exception\MissingRequestContextParameterException;
-use Sulu\Route\Domain\Model\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class MockRouteGenerator implements RouteGeneratorInterface

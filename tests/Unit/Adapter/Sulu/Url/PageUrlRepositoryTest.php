@@ -63,6 +63,19 @@ final class PageUrlRepositoryTest extends TestCase
 
     public function testFindReturnsNullOnGenerateThrowsException(): void
     {
+        $id = 'uuid';
+        $locale = 'de';
+        $path = '/path';
+        $expectedUrl = 'https://generated.de/path';
+
+        $this->routeRepository->result = new Route(
+            resourceKey: PageInterface::RESOURCE_KEY,
+            resourceId: $id,
+            locale: $locale,
+            slug: $path,
+            webspace: 'default',
+        );
+
         $this->routeGenerator->throwException = true;
         self::assertNull($this->repository->find('id', 'de'));
     }

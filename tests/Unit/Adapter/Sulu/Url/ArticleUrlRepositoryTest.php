@@ -9,6 +9,7 @@ use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockRouteGenerator;
 use PERSPEQTIVE\MediaCreditsBundle\Tests\Unit\Mocks\Sulu\MockRouteRepository;
 use PHPUnit\Framework\TestCase;
 use Sulu\Article\Domain\Model\ArticleInterface;
+use Sulu\Page\Domain\Model\PageInterface;
 use Sulu\Route\Domain\Model\Route;
 
 final class ArticleUrlRepositoryTest extends TestCase
@@ -64,6 +65,19 @@ final class ArticleUrlRepositoryTest extends TestCase
 
     public function testFindReturnsNullOnGenerateThrowsException(): void
     {
+        $id = 'uuid';
+        $locale = 'de';
+        $path = '/path';
+        $expectedUrl = 'https://generated.de/path';
+
+        $this->routeRepository->result = new Route(
+            resourceKey: PageInterface::RESOURCE_KEY,
+            resourceId: $id,
+            locale: $locale,
+            slug: $path,
+            webspace: 'default',
+        );
+
         $this->routeGenerator->throwException = true;
         self::assertNull($this->repository->find('id', 'de'));
     }
