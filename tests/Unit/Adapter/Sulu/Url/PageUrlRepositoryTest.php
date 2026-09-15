@@ -60,4 +60,10 @@ final class PageUrlRepositoryTest extends TestCase
         $this->routeRepository->result = null;
         self::assertNull($this->repository->find('id', 'de'));
     }
+
+    public function testFindReturnsNullOnGenerateThrowsException(): void
+    {
+        $this->routeGenerator->throwException = true;
+        self::assertNull($this->repository->find('id', 'de'));
+    }
 }
